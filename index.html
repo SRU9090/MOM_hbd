@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday Amma 🎉</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Poppins", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #ffe5ff 0, #f7d3ff 20%, #d3c4ff 45%, #9fb3ff 80%, #5f7aff 100%);
+      color: #2c2253;
+      overflow: hidden;
+    }
+
+    /* Glow overlay */
+    .overlay-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 10% 0, rgba(255,255,255,0.35), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(255,255,255,0.25), transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.9;
+      z-index: 0;
+    }
+
+    /* Background floating balloons */
+    .background-balloons {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-balloon {
+      position: absolute;
+      width: 32px;
+      height: 46px;
+      border-radius: 50% 50% 48% 48%;
+      opacity: 0.55;
+      animation: float-up linear infinite;
+      filter: blur(0.2px);
+    }
+
+    .bg-balloon::before {
+      content: "";
+      position: absolute;
+      bottom: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 4px;
+      background: inherit;
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+    }
+
+    .bg-balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -35px;
+      left: 50%;
+      width: 1px;
+      height: 34px;
+      background: rgba(150, 130, 220, 0.4);
+      transform: translateX(-50%);
+    }
+
+    @keyframes float-up {
+      0% {
+        transform: translate3d(0, 110vh, 0) translateX(0);
+      }
+      100% {
+        transform: translate3d(0, -20vh, 0) translateX(0);
+      }
+    }
+
+    /* Main card */
+    .card {
+      position: relative;
+      z-index: 2;
+      width: min(950px, 95vw);
+      padding: 32px 28px 30px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow:
+        0 20px 45px rgba(64, 35, 120, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -80px;
+      background:
+        radial-gradient(circle at 0 0, rgba(255, 221, 247, 0.9), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(210, 232, 255, 0.9), transparent 60%);
+      opacity: 0.75;
+      z-index: -1;
+    }
+
+    .card-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
+      gap: 20px;
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      .card-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Left side text */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7a4da0;
+      font-weight: 600;
+      box-shadow: 0 6px 14px rgba(180, 122, 255, 0.35);
+      margin-bottom: 10px;
+    }
+
+    .tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ff9ad5, #ffefa0);
+      box-shadow: 0 0 10px rgba(255, 154, 213, 0.9);
+    }
+
+    .title {
+      font-family: "Dancing Script", cursive;
+      font-size: clamp(40px, 5vw, 54px);
+      line-height: 1.05;
+      color: #3b225c;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8d6fb3;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .message {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #543b7d;
+      margin-bottom: 16px;
+    }
+
+    .message strong {
+      color: #c24686;
+      font-weight: 600;
+    }
+
+    .signature {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #7b639f;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .signature span.name {
+      font-family: "Dancing Script", cursive;
+      font-size: 26px;
+      color: #c24686;
+    }
+
+    .hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px dashed rgba(142, 114, 214, 0.7);
+      font-size: 11px;
+      color: #7156a5;
+      background: rgba(249, 246, 255, 0.95);
+    }
+
+    .hint-icon {
+      font-size: 13px;
+      animation: glow 1.5s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 4px rgba(255,255,255,0.9)); }
+      50% { transform: translateY(-2px); filter: drop-shadow(0 0 7px rgba(255,255,255,1)); }
+    }
+
+    /* Right side – balloons */
+    .balloon-area {
+      position: relative;
+      min-height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 4px;
+      overflow: visible;
+    }
+
+    .balloon-cloud {
+      position: absolute;
+      inset: 0 4% 0 4%;
+      border-radius: 22px;
+      background: radial-gradient(circle at 10% 0, rgba(255,255,255,0.9), transparent 60%),
+                  radial-gradient(circle at 90% 100%, rgba(255,255,255,0.85), transparent 65%);
+      opacity: 0.9;
+      z-index: -1;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+
+    .balloons-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      align-items: flex-end;
+      max-width: 360px;
+    }
+
+    .balloon {
+      position: relative;
+      width: 70px;
+      height: 95px;
+      border-radius: 50% 50% 48% 48%;
+      cursor: pointer;
+      transform-origin: bottom center;
+      animation: float 5.5s ease-in-out infinite;
+      box-shadow: 0 16px 40px rgba(88, 55, 160, 0.35);
+      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, opacity 0.25s ease-out;
+    }
+
+    .balloon:nth-child(2) {
+      animation-duration: 6.5s;
+      animation-delay: -1.2s;
+    }
+    .balloon:nth-child(3) {
+      animation-duration: 7.2s;
+      animation-delay: -2s;
+    }
+    .balloon:nth-child(4) {
+      animation-duration: 5.9s;
+      animation-delay: -1.5s;
+    }
+    .balloon:nth-child(5) {
+      animation-duration: 6.9s;
+      animation-delay: -0.5s;
+    }
+    .balloon:nth-child(6) {
+      animation-duration: 7.4s;
+      animation-delay: -2.4s;
+    }
+
+    .balloon:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 18px 40px rgba(52, 38, 103, 0.5);
+    }
+
+    .balloon::before {
+      /* knot */
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      background: inherit;
+      border-radius: 4px;
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+    }
+
+    .balloon::after {
+      /* string */
+      content: "";
+      position: absolute;
+      bottom: -60px;
+      left: 50%;
+      width: 2px;
+      height: 58px;
+      background: rgba(124, 106, 189, 0.7);
+      transform: translateX(-50%);
+      border-radius: 999px;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
+    }
+
+    .balloon-label {
+      position: absolute;
+      bottom: -72px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: #6c4f9c;
+      text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+      pointer-events: none;
+    }
+
+    /* Balloon colors */
+    .balloon--pink {
+      background: radial-gradient(circle at 30% 20%, #ffe6f3, #ff7fbc);
+    }
+    .balloon--purple {
+      background: radial-gradient(circle at 30% 20%, #f3e6ff, #a46bff);
+    }
+    .balloon--blue {
+      background: radial-gradient(circle at 30% 20%, #e6f5ff, #5ea8ff);
+    }
+    .balloon--peach {
+      background: radial-gradient(circle at 30% 20%, #fff1e5, #ff9b73);
+    }
+    .balloon--mint {
+      background: radial-gradient(circle at 30% 20%, #e7fff3, #5fd3a1);
+    }
+    .balloon--gold {
+      background: radial-gradient(circle at 30% 20%, #fff7da, #ffc967);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0) rotate(-1deg); }
+      25% { transform: translateY(-10px) translateX(-4px) rotate(1.5deg); }
+      50% { transform: translateY(-3px) translateX(4px) rotate(-1deg); }
+      75% { transform: translateY(-12px) translateX(2px) rotate(1deg); }
+      100% { transform: translateY(0) translateX(0) rotate(-1deg); }
+    }
+
+    /* Popped state */
+    .balloon.popped {
+      animation: none;
+      transform: scale(0.1);
+      opacity: 0;
+      box-shadow: none;
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 8px;
+      height: 14px;
+      border-radius: 2px;
+      pointer-events: none;
+      opacity: 0.9;
+      animation: confetti-fall linear forwards;
+      z-index: 999;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translate3d(0, 0, 0) rotateZ(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate3d(var(--offset-x), 120vh, 0) rotateZ(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay-glow"></div>
+  <div class="background-balloons" id="background-balloons"></div>
+
+  <div class="card">
+    <div class="card-inner">
+      <!-- Left side: Message -->
+      <div>
+        <div class="tag">
+          <span class="tag-dot"></span>
+          Happy birthday to my favourite person
+        </div>
+
+        <h1 class="title">Happy Birthday, Amma! 🎂</h1>
+
+        <div class="subtitle">so much love and balloons for you</div>
+
+        <p class="message">
+          Amma, happy birthday! 🌸  
+          Thank you for everything you do for me.  
+          <strong>I love you.</strong>
+        </p>
+
+        <div class="signature">
+          <span>Love,</span>
+          <span class="name">Sruthi ♡</span>
+        </div>
+
+        <div class="hint">
+          <span class="hint-icon">🎈</span>
+          <span>Click the balloons on the right to pop them and shower confetti!</span>
+        </div>
+      </div>
+
+      <!-- Right side: Balloons -->
+      <div class="balloon-area">
+        <div class="balloon-cloud"></div>
+
+        <div class="balloons-wrapper">
+          <div class="balloon balloon--pink" data-label="for you"></div>
+          <div class="balloon balloon--purple" data-label="for your smile"></div>
+          <div class="balloon balloon--blue" data-label="for your hugs"></div>
+          <div class="balloon balloon--peach" data-label="for your kindness"></div>
+          <div class="balloon balloon--mint" data-label="for your strength"></div>
+          <div class="balloon balloon--gold" data-label="for our memories"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ---------- Floating background balloons ---------- */
+    const bgContainer = document.getElementById('background-balloons');
+    const bgColors = [
+      'radial-gradient(circle at 30% 20%, #ffe6f3, #ff7fbc)',
+      'radial-gradient(circle at 30% 20%, #f3e6ff, #a46bff)',
+      'radial-gradient(circle at 30% 20%, #e6f5ff, #5ea8ff)',
+      'radial-gradient(circle at 30% 20%, #fff1e5, #ff9b73)',
+      'radial-gradient(circle at 30% 20%, #e7fff3, #5fd3a1)',
+      'radial-gradient(circle at 30% 20%, #fff7da, #ffc967)'
+    ];
+
+    function createBackgroundBalloons(count = 28) {
+      const vw = window.innerWidth;
+      for (let i = 0; i < count; i++) {
+        const b = document.createElement('div');
+        b.className = 'bg-balloon';
+        const left = Math.random() * vw;
+        const delay = Math.random() * -12;
+        const duration = 18 + Math.random() * 12;
+        const color = bgColors[Math.floor(Math.random() * bgColors.length)];
+        const scale = 0.8 + Math.random() * 0.8;
+
+        b.style.left = left + 'px';
+        b.style.background = color;
+        b.style.animationDuration = duration + 's';
+        b.style.animationDelay = delay + 's';
+        b.style.transform = `scale(${scale})`;
+        bgContainer.appendChild(b);
+      }
+    }
+    createBackgroundBalloons();
+
+    /* ---------- Foreground balloon labels ---------- */
+    document.querySelectorAll('.balloon').forEach((balloon) => {
+      const labelText = balloon.getAttribute('data-label');
+      const labelEl = document.createElement('div');
+      labelEl.className = 'balloon-label';
+      labelEl.textContent = labelText;
+      balloon.appendChild(labelEl);
+    });
+
+    /* ---------- Confetti logic ---------- */
+    const confettiColors = [
+      '#ff7fbc', '#ffb86c', '#ffe066',
+      '#9be7ff', '#b388ff', '#7cf2c4', '#ff9ad5'
+    ];
+
+    function createConfettiBurst(x, y) {
+      const pieces = 40;
+
+      for (let i = 0; i < pieces; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+
+        const color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        confetti.style.background = color;
+
+        const size = 6 + Math.random() * 6;
+        confetti.style.width = size + 'px';
+        confetti.style.height = (size + 5) + 'px';
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 40 + Math.random() * 90;
+        confetti.style.setProperty('--offset-x', Math.cos(angle) * distance + 'px');
+
+        const duration = 1.8 + Math.random() * 0.8;
+        confetti.style.animationDuration = duration + 's';
+
+        confetti.style.left = x + 'px';
+        confetti.style.top = y + 'px';
+
+        confetti.style.transform =
+          'translate3d(-50%, -50%, 0) rotate(' + (Math.random() * 360) + 'deg)';
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+          confetti.remove();
+        }, duration * 1000 + 300);
+      }
+    }
+
+    /* ---------- Balloon click: pop + confetti ---------- */
+    document.querySelectorAll('.balloon').forEach((balloon) => {
+      balloon.addEventListener('click', () => {
+        if (balloon.classList.contains('popped')) return;
+
+        const rect = balloon.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 3;
+
+        balloon.classList.add('popped');
+        createConfettiBurst(x, y);
+
+        const label = balloon.querySelector('.balloon-label');
+        if (label) {
+          label.style.transition = 'opacity 0.25s ease-out, transform 0.25s ease-out';
+          label.style.opacity = '0';
+          label.style.transform = 'translate(-50%, -10px)';
+        }
+
+        setTimeout(() => {
+          balloon.remove();
+        }, 280);
+      });
+    });
+  </script>
+</body>
+</html>
